@@ -17,7 +17,10 @@ namespace VidMetaData
                 var app = new MainApp();
                 ConfigureProgress(app);
 
-                var outputFile = app.Execute(new TagLibExtractor(), Environment.CurrentDirectory);
+                //var extractor = new TagLibExtractor();
+                var extractor = new WinShellExtractor();
+
+                var outputFile = app.Execute(extractor, Environment.CurrentDirectory);
                 Console.WriteLine($"Output = {outputFile}");
             }
             catch (Exception e)

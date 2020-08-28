@@ -17,6 +17,21 @@ namespace VidMetaData.FileHandling
         private string ConvertToTabSeparatedText(IReadOnlyCollection<VideoMetaData> metaDataCollection)
         {
             var sb = new StringBuilder();
+            
+            sb.Append(nameof(VideoMetaData.FileName));
+            sb.Append(Separator);
+            sb.Append(nameof(VideoMetaData.Name));
+            sb.Append(Separator);
+            sb.Append(nameof(VideoMetaData.DateCreatedUtc));
+            sb.Append(Separator);
+            sb.Append(nameof(VideoMetaData.DurationSeconds));
+            sb.Append(Separator);
+            sb.Append(nameof(VideoMetaData.SizeBytes));
+            sb.Append(Separator);
+            sb.Append(nameof(VideoMetaData.Width));
+            sb.Append(Separator);
+            sb.Append(nameof(VideoMetaData.Height));
+            sb.AppendLine();
 
             foreach (var metaData in metaDataCollection)
             {

@@ -23,7 +23,7 @@ namespace VidMetaData.Extractor
                 {
                     FileName = filePath,
                     DateCreatedUtc = fi.CreationTimeUtc,
-                    Name = video.Properties.GetProperty<string>(SystemProperties.System.Title).Value,
+                    Name = video.Properties.GetProperty<string>(SystemProperties.System.Title).Value ?? string.Empty,
                     DurationSeconds = duration == null ? 0 : (int) (duration.Value / 1E+7),
                     Height = GetIntegerValue(video, SystemProperties.System.Video.FrameHeight),
                     Width = GetIntegerValue(video, SystemProperties.System.Video.FrameWidth),

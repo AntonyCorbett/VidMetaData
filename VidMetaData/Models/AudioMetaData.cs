@@ -2,13 +2,9 @@
 
 namespace VidMetaData.Models
 {
-    internal class VideoMetaData : AbstractMediaMetaData
+    internal class AudioMetaData : AbstractMediaMetaData
     {
         public int DurationSeconds { get; set; }
-        
-        public int Width { get; set; }
-
-        public int Height { get; set; }
 
         public int AudioBitrate { get; set; }
 
@@ -20,14 +16,18 @@ namespace VidMetaData.Models
 
         public int AudioBitsPerSample { get; set; }
 
-        public double VideoDataRate { get; set; }
-
-        public double VideoTotalBitrate { get; set; }
-
-        public double VideoFrameRate { get; set; }
-
         public string Copyright { get; set; }
-        
+
+        public string Author { get; set; }
+
+        public string Composer{ get; set; }
+
+        public string Artist { get; set; }
+
+        public string AlbumTitle { get; set; }
+
+        public string Genre { get; set; }
+
         public override string ToDelimitedHeaderText(string separator)
         {
             var sb = new StringBuilder();
@@ -38,13 +38,7 @@ namespace VidMetaData.Models
             sb.Append(separator);
             sb.Append(nameof(DateCreatedUtc));
             sb.Append(separator);
-            sb.Append(nameof(DurationSeconds));
-            sb.Append(separator);
             sb.Append(nameof(SizeBytes));
-            sb.Append(separator);
-            sb.Append(nameof(Width));
-            sb.Append(separator);
-            sb.Append(nameof(Height));
             sb.Append(separator);
             sb.Append(nameof(AudioBitrate));
             sb.Append(separator);
@@ -56,13 +50,17 @@ namespace VidMetaData.Models
             sb.Append(separator);
             sb.Append(nameof(AudioBitsPerSample));
             sb.Append(separator);
-            sb.Append(nameof(VideoDataRate));
-            sb.Append(separator);
-            sb.Append(nameof(VideoTotalBitrate));
-            sb.Append(separator);
-            sb.Append(nameof(VideoFrameRate));
-            sb.Append(separator);
             sb.Append(nameof(Copyright));
+            sb.Append(separator);
+            sb.Append(nameof(Author));
+            sb.Append(separator);
+            sb.Append(nameof(Composer));
+            sb.Append(separator);
+            sb.Append(nameof(Artist));
+            sb.Append(separator);
+            sb.Append(nameof(AlbumTitle));
+            sb.Append(separator);
+            sb.Append(nameof(Genre));
 
             return sb.ToString();
         }
@@ -77,13 +75,7 @@ namespace VidMetaData.Models
             sb.Append(separator);
             sb.Append(DateCreatedUtc.ToLocalTime().ToString("s"));
             sb.Append(separator);
-            sb.Append(DurationSeconds);
-            sb.Append(separator);
             sb.Append(SizeBytes);
-            sb.Append(separator);
-            sb.Append(Width);
-            sb.Append(separator);
-            sb.Append(Height);
             sb.Append(separator);
             sb.Append(AudioBitrate);
             sb.Append(separator);
@@ -95,14 +87,18 @@ namespace VidMetaData.Models
             sb.Append(separator);
             sb.Append(AudioBitsPerSample);
             sb.Append(separator);
-            sb.Append(VideoDataRate);
-            sb.Append(separator);
-            sb.Append(VideoTotalBitrate);
-            sb.Append(separator);
-            sb.Append(VideoFrameRate);
-            sb.Append(separator);
             sb.Append(Copyright);
-
+            sb.Append(separator);
+            sb.Append(Author);
+            sb.Append(separator);
+            sb.Append(Composer);
+            sb.Append(separator);
+            sb.Append(Artist);
+            sb.Append(separator);
+            sb.Append(AlbumTitle);
+            sb.Append(separator);
+            sb.Append(Genre);
+            
             return sb.ToString();
         }
     }

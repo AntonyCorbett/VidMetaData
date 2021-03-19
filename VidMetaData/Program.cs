@@ -16,18 +16,28 @@ namespace VidMetaData
 
                 var app = new MainApp();
                 ConfigureProgress(app);
-
-                //var extractor = new TagLibExtractor();
-                var extractor = new WinShellExtractor();
-
-                var outputFile = app.Execute(extractor, Environment.CurrentDirectory);
-                Console.WriteLine($"Output = {outputFile}");
+                ProcessVideoFiles(app);
+                ProcessAudioFiles(app);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        private static void ProcessVideoFiles(MainApp app)
+        {
+            var extractor = new VideoExtractor();
+            var outputFile = app.Execute(extractor, Environment.CurrentDirectory);
+            Console.WriteLine($"Video File Output = {outputFile}");
+        }
+
+        private static void ProcessAudioFiles(MainApp app)
+        {
+            var extractor = new AudioExtractor();
+            var outputFile = app.Execute(extractor, Environment.CurrentDirectory);
+            Console.WriteLine($"Audio File Output = {outputFile}");
         }
 
         private static void ConfigureProgress(MainApp app)

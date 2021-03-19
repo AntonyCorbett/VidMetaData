@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using VidMetaData.Extractor;
+using VidMetaData.Extractor.Base;
 using VidMetaData.Models;
 
 namespace VidMetaData.FileHandling
 {
-    internal class VidFileReader
+    internal class MediaFileReader
     {
         public event EventHandler<ProgressEventArgs> ProgressEvent;
 
-        public IEnumerable<VideoMetaData> Execute(IVidMetaDataExtractor extractor, string folder)
+        public IEnumerable<AbstractMediaMetaData> Execute(IMetaDataExtractor extractor, string folder)
         {
-            var files = System.IO.Directory.EnumerateFiles(folder, "*.mp4");
+            var files = Directory.EnumerateFiles(folder, extractor.FileSearchPattern);
 
             foreach (var file in files)
             {

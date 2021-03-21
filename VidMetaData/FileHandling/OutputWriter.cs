@@ -10,11 +10,11 @@ namespace VidMetaData.FileHandling
     {
         private const string Separator = "\t";
 
-        public void Execute(string outputFilePath, IReadOnlyCollection<AbstractMediaMetaData> metaDataCollection)
+        public int Execute(string outputFilePath, IReadOnlyCollection<AbstractMediaMetaData> metaDataCollection)
         {
             if (!metaDataCollection.Any())
             {
-                return;
+                return 0;
             }
 
             var sb = new StringBuilder();
@@ -25,6 +25,8 @@ namespace VidMetaData.FileHandling
             }
 
             File.WriteAllText(outputFilePath, sb.ToString(), Encoding.UTF8);
+
+            return metaDataCollection.Count;
         }
     }
 }

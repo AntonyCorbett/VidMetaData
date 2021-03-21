@@ -12,17 +12,22 @@ namespace VidMetaData
     {
         public event EventHandler<ProgressEventArgs> ProgressEvent;
 
-        public string Execute(IMetaDataExtractor extractor, string folder)
+        public (int count, string outputPath) Execute(
+            IMetaDataExtractor extractor, 
+            string folder, 
+            bool includeSubFolders, 
+            bool useParallelProcessing)
         {
             var reader = new MediaFileReader();
+            reader.UserParallelProcessing = useParallelProcessing;
             ConfigureProgress(reader);
 
             var writer = new OutputWriter();
 
             var outputPath = GetOutputFilePath(folder, extractor.OutputFileName);
-            writer.Execute(outputPath, reader.Execute(extractor, folder).ToArray());
+            int count = writer.Execute(outputPath, reader.Execute(extractor, folder, includeSubFolders).ToArray());
 
-            return outputPath;
+            return (count, outputPath);
         }
 
         private void ConfigureProgress(MediaFileReader reader)

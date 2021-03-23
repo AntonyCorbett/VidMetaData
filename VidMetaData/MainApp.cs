@@ -45,7 +45,7 @@ namespace VidMetaData
         {
             var baseName = Path.GetFileNameWithoutExtension(fileName);
             var ext = Path.GetExtension(fileName);
-            return Path.Combine(folder, $"{baseName}-{DateTime.Now:yyyy-MM-dd hh_mm_ss}{ext}");
+            return Path.Combine(folder, $"{baseName}-{DateTime.Now:yyyy-MM-dd HH_mm_ss}{ext}");
         }
     }
 }

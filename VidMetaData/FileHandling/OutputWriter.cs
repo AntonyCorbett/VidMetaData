@@ -17,7 +17,8 @@ namespace VidMetaData.FileHandling
                 return 0;
             }
 
-            var sb = new StringBuilder();
+            var sb = new StringBuilder(metaDataCollection.Count + 1);
+
             sb.AppendLine(metaDataCollection.First().ToDelimitedHeaderText(Separator));
             foreach (var item in metaDataCollection)
             {

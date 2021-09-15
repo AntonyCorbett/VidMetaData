@@ -6,7 +6,7 @@ using VidMetaData.Models;
 
 namespace VidMetaData.Extractor
 {
-    internal class VideoExtractor : AbstractMediaExtractor, IMetaDataExtractor
+    internal sealed class VideoExtractor : AbstractMediaExtractor, IMetaDataExtractor
     {
         public AbstractMediaMetaData Extract(string filePath)
         {
@@ -22,7 +22,7 @@ namespace VidMetaData.Extractor
 
                 return new VideoMetaData
                 {
-                    FileName = filePath,
+                    FilePath = filePath,
                     DateCreatedUtc = fi.CreationTimeUtc,
                     Name = GetStringValue(video.Properties, SystemProperties.System.Title),
                     DurationSeconds = duration == null ? 0 : (int) (duration.Value / 1E+7),

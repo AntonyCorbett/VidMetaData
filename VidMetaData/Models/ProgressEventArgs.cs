@@ -1,6 +1,6 @@
 ﻿namespace VidMetaData.Models
 {
-    internal class ProgressEventArgs
+    internal sealed class ProgressEventArgs
     {
         public string FileName { get; set; }
 

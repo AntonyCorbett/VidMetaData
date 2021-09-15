@@ -37,7 +37,7 @@ namespace VidMetaData
         private static void ShowUsage()
         {
             Console.WriteLine("VidMetaData extracts MP3 and MP4 meta data from the current folder");
-            Console.WriteLine("storing it in a tab-delimited file with a '.tsv' extension.");
+            Console.WriteLine("storing it in tab-delimited files with '.tsv' extensions.");
             Console.WriteLine();
             Console.WriteLine("USAGE");
             Console.WriteLine("=====");

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.IO;
 
 namespace VidMetaData.Models
 {
     internal abstract class AbstractMediaMetaData
     {
-        public string FileName { get; set; }
+        public string FilePath { get; set; }
 
         public string Name { get; set; }
 
@@ -15,5 +16,9 @@ namespace VidMetaData.Models
         public abstract string ToDelimitedHeaderText(string separator);
 
         public abstract string ToDelimitedText(string separator);
+
+        public string FolderPath => Path.GetDirectoryName(FilePath);
+
+        public string FileName => Path.GetFileName(FilePath);
     }
 }

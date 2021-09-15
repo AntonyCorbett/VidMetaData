@@ -18,14 +18,17 @@ namespace VidMetaData
             bool includeSubFolders, 
             bool useParallelProcessing)
         {
-            var reader = new MediaFileReader();
-            reader.UserParallelProcessing = useParallelProcessing;
+            var reader = new MediaFileReader
+            {
+                UseParallelProcessing = useParallelProcessing
+            };
+
             ConfigureProgress(reader);
 
             var writer = new OutputWriter();
 
             var outputPath = GetOutputFilePath(folder, extractor.OutputFileName);
-            int count = writer.Execute(outputPath, reader.Execute(extractor, folder, includeSubFolders).ToArray());
+            var count = writer.Execute(outputPath, reader.Execute(extractor, folder, includeSubFolders).ToArray());
 
             return (count, outputPath);
         }
@@ -34,14 +37,11 @@ namespace VidMetaData
         {
             if (ProgressEvent != null)
             {
-                reader.ProgressEvent += delegate (object sender, ProgressEventArgs args)
-                {
-                    ProgressEvent?.Invoke(sender, args);
-                };
+                reader.ProgressEvent += (sender, args) => ProgressEvent?.Invoke(sender, args);
             }
         }
 
-        private string GetOutputFilePath(string folder, string fileName)
+        private static string GetOutputFilePath(string folder, string fileName)
         {
             var baseName = Path.GetFileNameWithoutExtension(fileName);
             var ext = Path.GetExtension(fileName);

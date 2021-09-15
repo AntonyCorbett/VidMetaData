@@ -8,7 +8,7 @@ using VidMetaData.Models;
 
 namespace VidMetaData.FileHandling
 {
-    internal class MediaFileReader
+    internal sealed class MediaFileReader
     {
         public event EventHandler<ProgressEventArgs> ProgressEvent;
 
@@ -19,22 +19,26 @@ namespace VidMetaData.FileHandling
                 extractor.FileSearchPattern, 
                 includeSubFolders ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
 
-            if (UserParallelProcessing)
+            if (UseParallelProcessing)
             {
                 var result = new List<AbstractMediaMetaData>();
                 var locker = new object();
-                int batchSize = 10;
+                const int batchSize = 10;
 
                 var batches = files.Batch(batchSize);
+#pragma warning disable PH_S022 // Parallel.For with Monitor Synchronization
                 Parallel.ForEach(
                     batches, 
                     batch =>
                     {
+                        var localResult = ProcessBatch(extractor, batch);
+
                         lock (locker)
                         {
-                            result.AddRange(ProcessBatch(extractor, batch));
+                            result.AddRange(localResult);
                         }
                     });
+#pragma warning restore PH_S022 // Parallel.For with Monitor Synchronization
 
                 return result;
             }
@@ -42,7 +46,7 @@ namespace VidMetaData.FileHandling
             return ProcessBatch(extractor, files);
         }
         
-        public bool UserParallelProcessing { get; set; }
+        public bool UseParallelProcessing { get; set; }
 
         private IEnumerable<AbstractMediaMetaData> ProcessBatch(
             IMetaDataExtractor extractor,
@@ -63,7 +67,6 @@ namespace VidMetaData.FileHandling
                 yield return metaData;
             }
         }
-
 
         private void OnProgressEvent(string filename, string text, bool error = false)
         {

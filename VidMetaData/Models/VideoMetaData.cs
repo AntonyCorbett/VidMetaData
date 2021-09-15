@@ -2,7 +2,7 @@
 
 namespace VidMetaData.Models
 {
-    internal class VideoMetaData : AbstractMediaMetaData
+    internal sealed class VideoMetaData : AbstractMediaMetaData
     {
         public int DurationSeconds { get; set; }
         
@@ -30,8 +30,14 @@ namespace VidMetaData.Models
         
         public override string ToDelimitedHeaderText(string separator)
         {
+#pragma warning disable U2U1108 // StringBuilders should be initialized with capacity
             var sb = new StringBuilder();
+#pragma warning restore U2U1108 // StringBuilders should be initialized with capacity
 
+            sb.Append(nameof(FilePath));
+            sb.Append(separator);
+            sb.Append(nameof(FolderPath));
+            sb.Append(separator);
             sb.Append(nameof(FileName));
             sb.Append(separator);
             sb.Append(nameof(Name));
@@ -69,11 +75,17 @@ namespace VidMetaData.Models
 
         public override string ToDelimitedText(string separator)
         {
+#pragma warning disable U2U1108 // StringBuilders should be initialized with capacity
             var sb = new StringBuilder();
+#pragma warning restore U2U1108 // StringBuilders should be initialized with capacity
 
+            sb.Append(FilePath.Trim());
+            sb.Append(separator);
+            sb.Append(FolderPath.Trim());
+            sb.Append(separator);
             sb.Append(FileName.Trim());
             sb.Append(separator);
-            sb.Append(Name?.Trim() ?? string.Empty);
+            sb.Append(Name?.Trim());
             sb.Append(separator);
             sb.Append(DateCreatedUtc.ToLocalTime().ToString("s"));
             sb.Append(separator);
